@@ -1,0 +1,13 @@
+<window width="1000px" closable="true" position="center" title="Configure process model with Quaestio">
+    <applet id="quaestio"
+         codebase="applets/"
+         archive="quaestio-applet.jar"
+         code="com.processconfiguration.quaestio.QuaestioApplet"
+         mayscript="true"
+         width="1000px" height="600px"/>
+    <script defer="true">
+         function showModel(x,y) {
+             alert('Model x=' + x + " y=" + y);
+         }
+    </script>
+</window>

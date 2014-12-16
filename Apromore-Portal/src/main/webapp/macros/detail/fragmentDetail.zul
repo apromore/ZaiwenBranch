@@ -1,0 +1,8 @@
+<listbox id="clusterFragmentsListbox" checkmark="false" vflex="true" span="true" emptyMessage="Select exactly one cluster!">
+    <listhead sizable="true">
+        <listheader hflex="min" label="Fragment id" sort="auto(fragmentId)"/>
+        <listheader hflex="min" label="Size" sort="auto(fragmentSize)"/>
+        <listheader hflex="min" label="Distance to medoid" sort="auto(distance)" sortDirection="ascending"/>
+        <listheader hflex="min" label="Process model(s)"/>
+    </listhead>
+</listbox>
