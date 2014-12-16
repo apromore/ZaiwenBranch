@@ -1,0 +1,59 @@
+<!-- choosenative window has EditOneProcessController.java as a controller 
+    TODO make a ChooseNativeController
+    listbox to choose native type implemented by the controller -->
+
+<window width="500px" closable="false" position="center">
+    <vbox vflex="1">
+        <grid>
+            <columns sizable="true">
+                <column width="40%"/>
+                <column width="60%"/>
+            </columns>
+            <rows>
+                <row spans="2">
+                    <label value="Choosing a Native Format different to the Original Format may result in loss of information in the returned model." />
+                </row>
+                <row id="canoniserSelectionRow">
+                    <label value="Available native types" />
+                    <listbox width="100%" multiple="false" mold="select" rows="1"/>
+                </row>
+                <row >
+                    <label value="Annotation" />
+                    <listbox width="100%" multiple="false" mold="select" rows="1"/>
+                </row>
+                <row>
+                    <label value="Edit annotation only" />
+                    <checkbox checked="false" tooltiptext="Tick this checkbox if you wish to edit selected annotation"/>
+                </row>
+                <row spans="3" id="canoniserPropertiesRow">
+                    <groupbox width="100%" >
+                        <attribute name="onOpen">
+                            <![CDATA[
+                                arrow.setSclass("open-" + self.isOpen());
+                            ]]>
+                        </attribute>
+                        <caption>
+                            <div id="arrow" class="open-true">Canoniser parameters</div>
+                        </caption>
+                        <grid id="canoniserPropertiesGrid" width="90%">
+                            <columns>
+                                <column width="50%"/>
+                                <column width="50%"/>
+                            </columns>
+                        </grid>
+                    </groupbox>
+                </row>
+                <row spans="3">
+                    <label value="*: mandatory fields." />
+                </row>
+                <row spans="3">
+                    <div align="center">
+                        <button label="OK" image="img/ok.png" />
+                        <button label="Cancel" image="img/cancel2.png" />
+                        <button label="Cancel all" image="img/cancel2.png" tooltiptext="Cancel edit of all remaining process models."/>
+                    </div>
+                </row>
+            </rows>
+        </grid>
+    </vbox>
+</window>

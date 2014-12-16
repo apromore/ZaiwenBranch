@@ -1,0 +1,17 @@
+        <window id="treeW" title="Folders" sizable="true" hflex="true" vflex="true" height="100%" width="100%">
+            <caption>
+                <toolbarbutton id="expand" image="/img/expandall.gif" />
+                <toolbarbutton id="contract" image="/img/collapseall.gif" />
+            </caption>
+            <style>
+                .h-inline-block {
+                    display: inline-block;
+                    _display: inline;
+                }
+            </style>
+            <tree id="tree" vflex="true" hflex="true" height="100%" width="100%" style="border-width: 0px; overflow: auto;">
+                <treecols sizable="true">
+                    <treecol label=""/>
+                </treecols>
+            </tree>
+        </window>

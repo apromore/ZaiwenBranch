@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apromore</groupId>
+        <artifactId>apromore</artifactId>
+        <version>1.1</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <artifactId>apromore-editor</artifactId>
+    <packaging>pom</packaging>
+    <name>Apromore Editor (Signavio)</name>
+
+    <scm>
+        <url>http://apromore.googlecode.com/svn/trunk/Apromore-Editor</url>
+        <connection>scm:svn:http://apromore.googlecode.com/svn/trunk/Apromore-Editor</connection>
+        <developerConnection>scm:svn:https://apromore.googlecode.com/svn/trunk/Apromore-Editor</developerConnection>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apromore</groupId>
+            <artifactId>epml-schema</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apromore</groupId>
+            <artifactId>pnml-schema</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.7</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.deckfour.xes</groupId>
+            <artifactId>OpenXES</artifactId>
+            <version>1.5</version>
+            <type>jar</type>
+        </dependency>
+       <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.4</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>/platform extensions/bpmn20xmlbasic/src</source>
+                                <source>/platform extensions/bpstruct/src</source>
+                                <source>/platform extensions/diagram core/src</source>
+                                <source>/platform extensions/epc/src</source>
+                                <source>/platform extensions/jpdl/src</source>
+                                <source>/platform extensions/pdf/src</source>
+                                <source>/platform extensions/petrinet/src</source>
+                                <source>/platform extensions/syntaxchecker/src</source>
+                                <source>/platform extensions/xpdl/src</source>
+                                <source>/platform extensions/yawl/src</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>${jdk.version}</version>
+                        <scope>system</scope>
+                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-junit</artifactId>
+                        <version>1.8.4</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                                <property name="test_classpath" refid="maven.test.classpath"/>
+                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+
+                                <dependencyfilesets prefix="mydeps."/>
+                                <mkdir dir="target/dependencies" />
+                                <copy todir="target/dependencies">
+                                    <fileset refid="mydeps.org.apromore:epml-schema:jar"/>
+                                </copy>
+
+                                <ant target="build-all" dir="platform extensions" />
+
+                                <ant target="build-all-in-one-war" inheritall="false" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <target>
+                                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                                <property name="test_classpath" refid="maven.test.classpath"/>
+                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+
+                                <ant target="test" inheritall="false"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.deckfour.xes</groupId>
+                                    <artifactId>OpenXES</artifactId>
+                                    <version>1.5</version>
+                                    <outputDirectory>${basedir}/platform/WebContent/WEB-INF/lib</outputDirectory>
+                                    <destFileName>OpenXES-1.5.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>commons-fileupload</groupId>
+                                    <artifactId>commons-fileupload</artifactId>
+                                    <version>1.2.2</version>
+                                    <outputDirectory>${basedir}/platform/WebContent/WEB-INF/lib</outputDirectory>
+                                    <destFileName>commons-fileupload-1.2.2.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.commons</groupId>
+                                    <artifactId>commons-collections4</artifactId>
+                                    <version>4.0</version>
+                                    <outputDirectory>${basedir}/platform/WebContent/WEB-INF/lib</outputDirectory>
+                                    <destFileName>commons-collections4-4.0.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>joda-time</groupId>
+                                    <artifactId>joda-time</artifactId>
+                                    <version>2.4</version>
+                                    <outputDirectory>${basedir}/platform/WebContent/WEB-INF/lib</outputDirectory>
+                                    <destFileName>joda-time-2.4.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

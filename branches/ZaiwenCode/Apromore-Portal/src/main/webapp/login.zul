@@ -1,0 +1,284 @@
+<?page title="Apromore" contentType="text/html;charset=UTF-8"?>
+
+<?link rel="stylesheet" type="text/css" href="css/apromore.css" ?>
+<?link rel="stylesheet" type="text/css" href="css/login.css" ?>
+<?link rel="stylesheet" type="text/css" href="css/bootstrap.css" ?>
+<?link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" ?>
+<?link rel="stylesheet" type="text/css" href="css/font-awesome.css" ?>
+
+<?script type="text/javascript" src="js/jquery.js"?>
+<?script type="text/javascript" src="js/bootstrap.js"?>
+
+<?link rel="shortcut icon" href="img/favicon.ico" ?>
+
+<zk xmlns:h="xhtml" xmlns:n="native" xmlns="http://www.zkoss.org/2005/zul">
+
+    <window id="main" title="Apromore" border="none" contentStyle="overflow:auto;">
+        <h:script type="text/javascript">
+            if (zk.ie || zk.ie7 || zk.ie8) {
+                alert("Sorry, we don't support Internet Explorer! some features might not work correctly.");
+            }
+        </h:script>
+
+        <html>
+        <h:body class="signin signin-horizontal" >
+
+            <h:div class="page-container">
+                <h:div id="header-container">
+                    <h:div id="header">
+                        <h:div class="navbar-inverse navbar-fixed-top">
+                            <h:div class="navbar-inner">
+                                <h:div class="container"> </h:div>
+                            </h:div>
+                        </h:div>
+
+                        <h:div class="header-drawer" style="height:3px"> </h:div>
+                    </h:div>
+                </h:div>
+
+                <h:div id="main-content" class="main-content container">
+                    <h:div id="page-content" class="page-content">
+
+                        <h:div if="${param['error'] == '1'}">
+                            <![CDATA[
+                              <div class="row">
+                                <div class="span6 offset3">
+                                  <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <i class="icon-remove-circle"></i> Login or password was incorrect. Please try again.
+                                  </div>
+                                </div>
+                              </div>
+                            ]]>
+                        </h:div>
+                        <h:div if="${param['error'] == '2'}">
+                            <![CDATA[
+                              <div class="row">
+                                <div class="span6 offset3">
+                                  <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      <i class="icon-remove-circle"></i> The page or component you request is no longer available.
+                                       This is normally caused by timeout, opening too many Web pages, or rebooting
+                                       the server.
+                                  </div>
+                                </div>
+                              </div>
+                            ]]>
+                        </h:div>
+                        <h:div if="${param['error'] == '3'}">
+                            <![CDATA[
+                            <div class="row">
+                                <div class="span6 offset3">
+                                    <div class="alert alert-error">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="icon-remove-circle"></i> Apromore Failed to process your request. Please try again.
+                                    </div>
+                                </div>
+                            </div>
+                            ]]>
+                        </h:div>
+                        <h:div if="${param['success'] == '1'}">
+                            <![CDATA[
+                            <div class="row">
+                                <div class="span6 offset3">
+                                    <div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="icon-remove-circle"></i> User Registration Accepted. Please Login.
+                                    </div>
+                                </div>
+                            </div>
+                            ]]>
+                        </h:div>
+                        <h:div if="${param['success'] == '2'}">
+                            <![CDATA[
+                            <div class="row">
+                                <div class="span6 offset3">
+                                    <div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <i class="icon-remove-circle"></i> Password Reset. Please check your email account for a new password.
+                                    </div>
+                                </div>
+                            </div>
+                            ]]>
+                        </h:div>
+
+                        <h:div class="row">
+                            <h:div class="tab-content overflow form-dark">
+
+                                <h:div class="tab-pane fade in active" id="login">
+                                    <h:div class="span5">
+                                        <h:h4 class="welcome">
+                                            <h:small>
+                                                <h:i class="icon-user" />
+                                                Login
+                                            </h:small>
+                                        </h:h4>
+                                        <h:form method="post" action="j_spring_security_check" name="login_form">
+                                            <h:fieldset>
+                                                <h:div class="controls">
+                                                    <h:input class="span5" type="text" name="j_username" placeholder="Your Login or Email"/>
+                                                </h:div>
+                                                <h:div class="controls controls-row">
+                                                    <h:input class="span3" type="password" name="j_password" placeholder="password"/>
+                                                    <h:button type="submit" class="span2 btn btn-primary">SIGN IN</h:button>
+                                                </h:div>
+                                                <h:hr class="margin-xm"/>
+                                                <h:label class="checkbox" for="_spring_security_remember_me">
+                                                    <h:input name="_spring_security_remember_me" class="checkbox" type="checkbox"/>
+                                                    Remember me
+                                                </h:label>
+                                                <h:hr class="margin-mm "/>
+                                                <h:a href="#forgot" class="btn" data-toggle="tab">Forgot Password?</h:a>
+                                                <h:a href="#register" class="btn" data-toggle="tab">No account yet? Register now for free!</h:a>
+                                            </h:fieldset>
+                                        </h:form>
+                                    </h:div>
+
+                                    <h:div class="span7">
+                                        <h:h4 class="welcome">
+                                            <h:small>Advanced Process Model Repository</h:small>
+                                        </h:h4>
+                                        <h:p>
+                                            Apromore is an open-source repository to store and disclose business process models of a variety of types and languages, such as BPMN, eEPCs, AML and YAWL. Most importantly, Apromore aims to provide state-of-the-art features to facilitate the management of large process model collections, including features to evaluate, filter, design and present large collections of business process models. It relies on a highly-extensible plugin architecture based on OSGi. Visit <a href="http://www.apromore.org">www.apromore.org</a> for more information and development resources.
+                                        </h:p>
+                                        <h:p align="center">
+                                            <h:img src="img/apromore_logo.png"/>
+                                        </h:p>
+                                        <!--<h:br class="margin-mm "/>-->
+                                        <!--<h:p>-->
+                                            <!--<h:a id="btnTwitter" class="btn link"><i class="icon-twitter-sign icon-2x"/> Signin with Twitter</h:a>-->
+                                            <!--<h:a id="btnFacebook" class="btn link"><i class="icon-facebook-sign icon-2x"/> Signin with Facebook</h:a>-->
+                                        <!--</h:p>-->
+                                    </h:div>
+                                </h:div>
+
+                                <h:div class="tab-pane fade" id="forgot">
+                                    <h:div class="span5">
+                                        <h:h4 class="welcome">
+                                            <h:small>
+                                                Forgot your password
+                                                <h:i class="icon-question" />
+                                            </h:small>
+                                        </h:h4>
+                                        <h:form method="post" action="register/resetPassword" name="reset_form">
+                                            <h:fieldset>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="username" placeholder="Your Email Address"/>
+                                                </h:div>
+                                                <h:hr class="margin-xm"/>
+                                                <h:button class="btn-block btn btn-primary" type="submit">Reset Password</h:button>
+                                                <h:hr class="margin-mm"/>
+                                                <h:p>Have you remembered? <h:a href="#login" class="btn btn-boo" data-toggle="tab">Try to log in again.</h:a></h:p>
+                                            </h:fieldset>
+                                        </h:form>
+                                    </h:div>
+
+                                    <h:div class="span7">
+                                        <h:h4 class="welcome">
+                                            <h:small>Advanced Process Model Repository</h:small>
+                                        </h:h4>
+                                        <h:hr class="margin-mm "/>
+                                        <h:p>
+                                            Apromore is an open-source repository to store and disclose business process models of a variety of types and languages, such as BPMN, eEPCs, AML and YAWL. Most importantly, Apromore aims to provide state-of-the-art features to facilitate the management of large process model collections, including features to evaluate, filter, design and present large collections of business process models. It relies on a highly-extensible plugin architecture based on OSGi. Visit <a href="http://www.apromore.org">www.apromore.org</a> for more information and development resources.
+                                        </h:p>
+                                        <h:p align="center">
+                                            <h:img src="img/apromore_logo.png"/>
+                                        </h:p>
+                                    </h:div>
+                                </h:div>
+
+                                <h:div class="tab-pane fade" id="register">
+                                    <h:div class="offset3 span6">
+                                        <h:h4 class="welcome">
+                                            <h:small>
+                                                <h:i class="icon-user" />
+                                                New User Registration
+                                            </h:small>
+                                        </h:h4>
+                                        <h:form method="post" action="register/newUserRegister" name="newuser_form">
+                                            <h:fieldset>
+                                                <h:legend class="two"><h:span>Account information</h:span></h:legend>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="firstname" placeholder="First Name"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                                <br/>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="surname" placeholder="Last Name"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                                <br/>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="username" placeholder="Username"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                                <br/>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="email" placeholder="Email Address"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                            </h:fieldset>
+                                            <h:fieldset>
+                                                <h:legend class="two"><h:span>Password</h:span></h:legend>
+                                                <h:div class="input-group input-append">
+                                                    <h:input class="span4" type="password" name="password" placeholder="Password"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                                <br/>
+                                                <h:div class="input-group input-append">
+                                                    <h:input class="span4" type="password" name="confirmPassword" placeholder="Confirm Password"/>
+                                                    <h:span class="add-on">*</h:span>
+                                                </h:div>
+                                            </h:fieldset>
+                                            <h:fieldset>
+                                                <h:legend class="two"><h:span>Password Security</h:span></h:legend>
+                                                <h:div class="input-append">
+                                                    <h:select name="securityQuestion" class="span4">
+                                                        <h:option value="What was your childhood nickname?">What was your childhood nickname?</h:option>
+                                                        <h:option value="In what city did you meet your spouse/significant other?">In what city did you meet your spouse/significant other?</h:option>
+                                                        <h:option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</h:option>
+                                                        <h:option value="What street did you live on in third grade?">What street did you live on in third grade?</h:option>
+                                                        <h:option value="What is the middle name of your oldest child?">What is the middle name of your oldest child?</h:option>
+                                                        <h:option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</h:option>
+                                                    </h:select>
+                                                </h:div>
+                                                <br/>
+                                                <h:div class="input-append">
+                                                    <h:input class="span4" type="text" name="securityAnswer" placeholder="Answer for your security question"/>
+                                                </h:div>
+                                                <h:hr class="margin-xx"/>
+                                                <h:button type="submit" class="btn-block btn btn-primary btn-larg">Register</h:button>
+                                                <h:hr class="margin-xm"/>
+                                                <h:p class="text-right">Have you remembered? <h:a href="#login" class="btn btn-boo" data-toggle="tab">Try to log in again.</h:a></h:p>
+                                            </h:fieldset>
+                                        </h:form>
+                                    </h:div>
+                                </h:div>
+
+                            </h:div>
+
+                        </h:div>
+                    </h:div>
+                </h:div>
+            </h:div>
+
+            <h:footer class="footer">
+                <h:div class="web-description span12">
+                    <h:h5><![CDATA[ &copy; ]]> 2009-2014, The Apromore Initiative.</h:h5>
+                    <h:p>Except where otherwise noted, content on this site is licensed under a <h:a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Licence</h:a></h:p>
+                    <h:p class="cc-logo"/>
+                    <h:p>
+                        All models and other information  stored in the repository are third party materials that have been uploaded by other users, unless expressly indicated otherwise by QUT. QUT  makes the repository material available ‘as is’ and does not check the currency, accuracy, reliability, performance, completeness, suitability or workabliity of the repository material or whether repository materials uploaded by other users infringe anyone’s intellectual property rights. You use the repository material at your own risk.
+                    </h:p>
+                    <h:p>
+                         To the fullest extent permitted by law, QUT excludes all liability whether in contract, tort (including negligence), statute or otherwise for any direct or indirect losses, damages, expenses, claims and liability that you may incur as a result or arising from any use of the repository material. To the extent legislation does not allow particular liability to be excluded, it is limited to the fullest extent permitted by such legislation.
+                    </h:p>
+                </h:div>
+            </h:footer>
+
+        </h:body>
+        </html>
+
+    </window>
+
+</zk>
